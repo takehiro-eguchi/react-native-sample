@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { List, Title } from "react-native-paper";
+import { List, Title, FAB } from "react-native-paper";
 import { format } from 'date-fns/format';
+import { useNavigation } from '@react-navigation/native';
 
 const memos = [
     {
@@ -21,6 +22,14 @@ const memos = [
 
 // メインスクリーン
 export const MainScreen = () => {
+    // ナビゲータ取得
+    const navigation = useNavigation();
+
+    // 新規作成イベント
+    const onPressAdd = () => {
+        navigation.navigate('Compose');
+    };
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -37,6 +46,14 @@ export const MainScreen = () => {
                             descriptionStyle={{textAlign: 'right'}}/>
                     )}
                     />
+            <FAB 
+                style={{
+                    position: 'absolute',
+                    right: 16,
+                    bottom: 16
+                }}
+                icon='plus'
+                onPress={onPressAdd}/>
         </View>
     );
 };
