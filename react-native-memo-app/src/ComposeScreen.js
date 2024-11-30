@@ -5,15 +5,21 @@ import {
     Platform
  } from "react-native";
  import { TextInput, Button } from "react-native-paper";
+ import { useNavigation } from '@react-navigation/native';
+ import { save } from './store';
 
 // メモ作成画面
 export const ComposeScreen = () => {
     // テキスト
     const [ text, setText ] = useState('');
 
-    // 保存処理
-    const onPressSave = () => {
+    // ナビゲーション取得
+    const navigation = useNavigation();
 
+    // 保存処理（保存後、元の画面に戻る）
+    const onPressSave = async () => {
+        await save(text, Date.now());
+        navigation.goBack();
     };
 
     // 画面
